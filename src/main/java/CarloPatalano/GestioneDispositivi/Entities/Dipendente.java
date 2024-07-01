@@ -35,15 +35,18 @@ public class Dipendente {
     @Email(message = "Email non valida.")
     @NotBlank(message = "Inserisci una email nel campo.")
     private String email;
-
+private String password;
     private String avatar;
-    private String password;
 
-    public Dipendente(String avatar, String email, String cognome, String name, String username) {
-        this.avatar = avatar;
+
+    public Dipendente(String email, String name, String cognome, String username, String avatar , String password) {
         this.email = email;
-        this.cognome = cognome;
         this.name = name;
+        this.cognome = cognome;
         this.username = username;
+        this.avatar = avatar;
+        this.password=password;
     }
+
+
 }

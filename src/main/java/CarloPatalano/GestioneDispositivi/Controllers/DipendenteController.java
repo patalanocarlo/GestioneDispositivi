@@ -19,8 +19,6 @@ import java.util.Map;
 @RequestMapping("/dipendenti")
 public class DipendenteController {
 
-
-
     @Autowired
     private Cloudinary cloudinary;
 

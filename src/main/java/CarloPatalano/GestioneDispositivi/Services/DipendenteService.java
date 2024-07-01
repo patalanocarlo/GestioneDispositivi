@@ -3,6 +3,7 @@ package CarloPatalano.GestioneDispositivi.Services;
 
 
 
+import CarloPatalano.GestioneDispositivi.DTO.NewUserDTO;
 import CarloPatalano.GestioneDispositivi.DTO.NotFoundException;
 import CarloPatalano.GestioneDispositivi.Entities.Dipendente;
 import CarloPatalano.GestioneDispositivi.Repository.DipendenteRepository;
@@ -21,8 +22,14 @@ public class DipendenteService {
         List<Dipendente> dipendenti = dipendenteRepository.findAll();
         return dipendenti;
     }
-    public Dipendente save(Dipendente dipendente) {
-        return dipendenteRepository.save(dipendente);
+    public Long saveNewDipendente(NewUserDTO newUserDTO) {
+        Dipendente dipendente = new Dipendente();
+        dipendente.setEmail(newUserDTO.getEmail());
+        dipendente.setPassword(newUserDTO.getPassword());
+        dipendente.setName(newUserDTO.getNome());
+        dipendente.setCognome(newUserDTO.getCognome());
+        Dipendente savedDipendente = dipendenteRepository.save(dipendente);
+        return savedDipendente.getId();
     }
 
     public Dipendente getDipendenteById(Long id) {
@@ -57,7 +64,6 @@ public class DipendenteService {
         dipendenteRepository.delete(dipendente);
     }
     public Dipendente findByEmail(String email){
-
         return dipendenteRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Dipendentecon email " + email + " non trovato!"));
     }
 
