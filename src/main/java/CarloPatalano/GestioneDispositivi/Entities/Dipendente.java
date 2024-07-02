@@ -1,9 +1,6 @@
 package CarloPatalano.GestioneDispositivi.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -38,15 +35,20 @@ public class Dipendente {
 private String password;
     private String avatar;
 
+    @Enumerated(EnumType.STRING)
+private Role role;
 
-    public Dipendente(String email, String name, String cognome, String username, String avatar , String password) {
+    public Dipendente(String email, String name, String cognome, String username, String avatar , String password,Role role) {
         this.email = email;
         this.name = name;
         this.cognome = cognome;
         this.username = username;
         this.avatar = avatar;
         this.password=password;
+        this.role=role;
     }
 
 
+    public Dipendente(String email, String password, String nome, String cognome, Role role) {
+    }
 }
