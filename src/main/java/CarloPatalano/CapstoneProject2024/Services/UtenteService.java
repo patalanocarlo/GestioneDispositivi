@@ -17,11 +17,10 @@ public class UtenteService {
     @Autowired
     private UtenteRepository utenteRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
 
     public Utente saveUtente(Utente utente) {
-        utente.setPassword(passwordEncoder.encode(utente.getPassword()));
+        utente.setPassword(utente.getPassword());
         return utenteRepository.save(utente);
     }
 
