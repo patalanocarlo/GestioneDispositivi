@@ -1,4 +1,4 @@
-package CarloPatalano.GestioneDispositivi.Entities;
+package CarloPatalano.CapstoneProject2024.Entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,13 +8,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
-public class Utente {
+public class UtenteRuolo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
+
+    private String ruolo;
+
+    public UtenteRuolo(String ruolo) {
+        this.ruolo = ruolo;
+    }
 }
