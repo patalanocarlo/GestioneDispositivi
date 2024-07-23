@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>CarloPatalano</groupId>
-	<artifactId>GestioneDispositivi</artifactId>
+	<artifactId>FinalCapstone2024</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>GestioneDispositivi</name>
 	<description>Demo project for Spring Boot</description>
