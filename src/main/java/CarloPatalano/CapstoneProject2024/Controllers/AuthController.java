@@ -24,34 +24,36 @@ public class AuthController {
     private JWTTools jwtTools;
 
     @PostMapping("/register")
-    public String register(@RequestBody RegisterRequestPayload registerRequestPayload ) {
+    public String register(@RequestBody RegisterRequestPayload registerRequestPayload) {
         UtenteRuolo utenteRuolo = utenteRuoloService.getUtenteRuoloById(registerRequestPayload.getRuoloId())
                 .orElseThrow(() -> new RuntimeException("Ruolo non trovato"));
-
         Utente utente = new Utente();
         utente.setNome(registerRequestPayload.getNome());
         utente.setCognome(registerRequestPayload.getCognome());
         utente.setUsername(registerRequestPayload.getUsername());
         utente.setEmail(registerRequestPayload.getEmail());
-        utente.setPassword(registerRequestPayload.getPassword()); // Senza codifica
+        utente.setPassword(registerRequestPayload.getPassword());
         utente.setUtenteRuolo(utenteRuolo);
+
 
         utenteService.saveUtente(utente);
 
-        String token = jwtTools.createToken(utente);
-        return token;
+
+        return "Registrazione completata";
     }
 
     @PostMapping("/login")
     public String login(@RequestBody LoginRequestPayload loginRequestPayload) {
         Utente utente = utenteService.findByUsername(loginRequestPayload.getUsername())
-                .orElseThrow(() -> new RuntimeException("Utente non trovato"));
+                .orElseGet(() -> utenteService.findByEmail(loginRequestPayload.getUsername())
+                        .orElseThrow(() -> new RuntimeException("Utente non trovato")));
 
-        if (loginRequestPayload.getPassword().equals(utente.getPassword())) { // Senza codifica
+        if (loginRequestPayload.getPassword().equals(utente.getPassword())) {
             String token = jwtTools.createToken(utente);
             return token;
         } else {
             throw new RuntimeException("Credenziali non valide");
         }
     }
+
 }

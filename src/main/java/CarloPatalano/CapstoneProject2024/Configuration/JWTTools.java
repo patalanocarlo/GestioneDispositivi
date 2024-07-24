@@ -20,6 +20,7 @@ public class JWTTools {
         return Jwts.builder()
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 7))
+                .claim("username", utente.getUsername())
                 .subject(String.valueOf(utente.getId()))
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
                 .compact();
@@ -38,5 +39,13 @@ public class JWTTools {
     public String extractIdFromToken(String token){
         return Jwts.parser().verifyWith(Keys.hmacShaKeyFor(secret.getBytes())).build()
                 .parseSignedClaims(token).getPayload().getSubject();
+    }
+    public String extractUsernameFromToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(Keys.hmacShaKeyFor(secret.getBytes()))
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("username", String.class);
     }
 }
