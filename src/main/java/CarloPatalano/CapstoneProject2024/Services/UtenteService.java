@@ -1,12 +1,8 @@
 package CarloPatalano.CapstoneProject2024.Services;
 
-
-
 import CarloPatalano.CapstoneProject2024.Entities.Utente;
-
 import CarloPatalano.CapstoneProject2024.Repository.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -17,9 +13,13 @@ public class UtenteService {
     @Autowired
     private UtenteRepository utenteRepository;
 
-
-
     public Utente saveUtente(Utente utente) {
+        if (utenteRepository.findByEmail(utente.getEmail()).isPresent()) {
+            throw new RuntimeException("Email già in uso");
+        }
+        if (utenteRepository.findByUsername(utente.getUsername()).isPresent()) {
+            throw new RuntimeException("Username già in uso");
+        }
         utente.setPassword(utente.getPassword());
         return utenteRepository.save(utente);
     }
@@ -27,6 +27,7 @@ public class UtenteService {
     public Optional<Utente> getUtenteById(Long id) {
         return utenteRepository.findById(id);
     }
+
     public Optional<Utente> findByEmail(String email) {
         return utenteRepository.findByEmail(email);
     }

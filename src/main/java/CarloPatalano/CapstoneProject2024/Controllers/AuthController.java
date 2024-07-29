@@ -35,9 +35,11 @@ public class AuthController {
         utente.setPassword(registerRequestPayload.getPassword());
         utente.setUtenteRuolo(utenteRuolo);
 
-
-        utenteService.saveUtente(utente);
-
+        try {
+            utenteService.saveUtente(utente);
+        } catch (RuntimeException e) {
+            return e.getMessage();
+        }
 
         return "Registrazione completata";
     }

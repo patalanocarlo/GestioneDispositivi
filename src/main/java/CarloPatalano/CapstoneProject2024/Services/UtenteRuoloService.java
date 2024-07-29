@@ -16,7 +16,7 @@ public class UtenteRuoloService {
         return utenteRuoloRepository.save(utenteRuolo);
     }
 
-    public Optional<UtenteRuolo> getUtenteRuoloById(Long id) {
+   public Optional<UtenteRuolo> getUtenteRuoloById(Long id) {
         return utenteRuoloRepository.findById(id);
     }
 
