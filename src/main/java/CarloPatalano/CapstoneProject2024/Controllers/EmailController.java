@@ -26,17 +26,17 @@ public class EmailController {
     @PostMapping("/send")
     public String sendEmail(@RequestBody ContactForm form, HttpServletRequest request) {
         try {
-            // Ottieni il token JWT dall'intestazione Authorization
+
             String authHeader = request.getHeader("Authorization");
             if (authHeader != null && authHeader.startsWith("Bearer ")) {
                 String token = authHeader.substring(7);
                 String username = jwtTools.extractUsernameFromToken(token);
 
-                // Recupera i dettagli dell'utente
+
                 Utente utente = utenteService.findByUsername(username)
                         .orElseThrow(() -> new RuntimeException("Utente non trovato"));
 
-                // Invia l'email all'indirizzo specificato
+
                 String recipientEmail = "patalanocarlo674@gmail.com";
                 mailgunSender.sendEmail(recipientEmail, form.getSubject(), form.getMessage());
                 return "Email inviata con successo!";
@@ -49,7 +49,7 @@ public class EmailController {
     }
 }
 
-// Classe di supporto per il modulo di contatto
+
 class ContactForm {
     private String subject;
     private String message;
