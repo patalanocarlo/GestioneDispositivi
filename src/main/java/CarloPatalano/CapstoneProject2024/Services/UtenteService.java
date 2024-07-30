@@ -21,6 +21,9 @@ public class UtenteService {
             throw new RuntimeException("Username già in uso");
         }
         utente.setPassword(utente.getPassword());
+        if (utente.getProfileImage() == null) {
+            utente.setProfileImage("default-image-url");
+        }
         return utenteRepository.save(utente);
     }
 

@@ -32,7 +32,7 @@ public class SecurityConfig {
         httpSecurity.sessionManagement(http -> http.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.cors(http -> {});
         httpSecurity.authorizeHttpRequests(http -> {
-            http.requestMatchers("/auth/**", "/ruoli/create", "/api/payment/**").permitAll();
+            http.requestMatchers("/auth/**", "/ruoli/create", "/api/payment/**" ,"/user/**").permitAll();
             http.anyRequest().authenticated();
         });
 

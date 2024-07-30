@@ -34,7 +34,7 @@ public class AuthController {
         utente.setEmail(registerRequestPayload.getEmail());
         utente.setPassword(registerRequestPayload.getPassword());
         utente.setUtenteRuolo(utenteRuolo);
-
+        utente.setProfileImage("default-image-url");
         try {
             utenteService.saveUtente(utente);
         } catch (RuntimeException e) {

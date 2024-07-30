@@ -24,7 +24,16 @@ public class PaymentController {
 
     @PostMapping("/create-payment-intent")
     public Map<String, String> createPaymentIntent(@RequestBody Map<String, Object> data) throws StripeException {
-        int amount = (int) data.get("amount");
+        Object amountObj = data.get("amount");
+
+        int amount;
+        if (amountObj instanceof Integer) {
+            amount = (int) amountObj;
+        } else if (amountObj instanceof Double) {
+            amount = (int) Math.round((Double) amountObj);
+        } else {
+            throw new IllegalArgumentException("Invalid amount type");
+        }
 
         if (amount < 50) {
             amount = 50;

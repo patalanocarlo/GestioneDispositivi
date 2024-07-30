@@ -23,7 +23,7 @@ public class Utente implements UserDetails {
     private String username;
     private String email;
     private String password;
-
+    private String profileImage;
 @ManyToOne
     private UtenteRuolo utenteRuolo;
 
